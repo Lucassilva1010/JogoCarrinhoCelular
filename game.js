@@ -83,7 +83,7 @@ if (isTouchDevice) {
         const deltaX = touch.clientX - touchStartX;
         const deltaY = touch.clientY - touchStartY;
 
-        const sensitivity = 20; // Ajuste de sensibilidade
+        const sensitivity = 15; // Ajuste de sensibilidade
 
         controls.left = deltaX < -sensitivity;
         controls.right = deltaX > sensitivity;
@@ -149,12 +149,7 @@ function drawCar() {
 function drawObstacles() {
     obstacles.forEach(obstacle => {
         ctx.fillStyle = '#FFA500'; // Laranja
-        ctx.beginPath();
-        ctx.moveTo(obstacle.x, obstacle.y);
-        ctx.lineTo(obstacle.x + obstacle.width, obstacle.y + obstacle.height / 2);
-        ctx.lineTo(obstacle.x, obstacle.y + obstacle.height);
-        ctx.closePath();
-        ctx.fill();
+        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
     });
 }
 

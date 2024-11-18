@@ -1,0 +1,20 @@
+/* Estilo geral do corpo */
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1E1E1E; /* Fundo escuro */
+}
+
+/* Estilo do Canvas */
+#gameCanvas {
+    border: 2px solid #FFFFFF; /* Adiciona borda branca */
+    background-color: #333333; /* Fundo cinza para a pista */
+    width: 90%;
+    height: 80vh;
+    max-width: 600px;
+    max-height: 800px;
+}

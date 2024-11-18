@@ -46,6 +46,7 @@ const controls = {
     down: false,
 };
 
+// Eventos para dispositivos desktop (teclado)
 if (!isTouchDevice) {
     window.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') controls.left = true;
@@ -62,30 +63,40 @@ if (!isTouchDevice) {
     });
 }
 
+// Eventos para dispositivos móveis (toque)
 if (isTouchDevice) {
-    let touchStartX, touchStartY;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
+    // Evento para início do toque
     canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Previna o comportamento padrão do navegador
         const touch = e.touches[0];
         touchStartX = touch.clientX;
         touchStartY = touch.clientY;
     });
 
+    // Evento para movimento do toque
     canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault(); // Previna o comportamento padrão do navegador
         const touch = e.touches[0];
         const deltaX = touch.clientX - touchStartX;
         const deltaY = touch.clientY - touchStartY;
 
-        controls.left = deltaX < -30;
-        controls.right = deltaX > 30;
-        controls.up = deltaY < -30;
-        controls.down = deltaY > 30;
+        const sensitivity = 20; // Ajuste de sensibilidade
+
+        controls.left = deltaX < -sensitivity;
+        controls.right = deltaX > sensitivity;
+        controls.up = deltaY < -sensitivity;
+        controls.down = deltaY > sensitivity;
 
         touchStartX = touch.clientX;
         touchStartY = touch.clientY;
     });
 
-    canvas.addEventListener('touchend', () => {
+    // Evento para fim do toque
+    canvas.addEventListener('touchend', (e) => {
+        e.preventDefault(); // Previna o comportamento padrão do navegador
         controls.left = false;
         controls.right = false;
         controls.up = false;
@@ -93,6 +104,7 @@ if (isTouchDevice) {
     });
 }
 
+// Funções do jogo
 function moveCar() {
     if (controls.left) car.x = Math.max(0, car.x - car.speed);
     if (controls.right) car.x = Math.min(canvas.width - car.width, car.x + car.speed);
@@ -170,9 +182,9 @@ function updateScore() {
 }
 
 function drawScore() {
-    ctx.fillStyle = '#FFD700'; // Dourado
-    ctx.font = 'bold 30px Arial'; // Tamanho maior
-    ctx.fillText(`Pontuação: ${score}`, 20, 50); // Posição ajustada
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 30px Arial';
+    ctx.fillText(`Pontuação: ${score}`, 20, 50);
 }
 
 function gameLoop() {
